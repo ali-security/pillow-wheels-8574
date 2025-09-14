@@ -54,6 +54,7 @@ jobs:
             mb-ml-libc: "musllinux"
             mb-ml-ver: "_1_1"
     env:
+      GH_NAME: ${{ matrix.python }}-${{ matrix.mb-ml-libc }}${{ matrix.mb-ml-ver }}
       BUILD_COMMIT: ${{ inputs.build-commit }}
       PLAT: ${{ matrix.platform }}
       MB_PYTHON_VERSION: ${{ matrix.python }}
@@ -68,9 +69,9 @@ jobs:
           python-version: "3.x"
       - name: Build Wheel
         run: .github/workflows/build.sh
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
-          name: ${{ inputs.artifacts-name }}
+          name: ${{ inputs.artifacts-name }}-linux-${{ env.GH_NAME }}
           path: wheelhouse/*.whl
       # Uncomment to get SSH access for testing
       # - name: Setup tmate session

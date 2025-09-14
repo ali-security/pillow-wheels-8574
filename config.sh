@@ -52,7 +52,7 @@ function build_brotli {
 function pre_build {
     # Any stuff that you need to do before you start building the wheels
     # Runs in the root directory of this repository.
-    curl -fsSL -o pillow-depends-main.zip https://github.com/python-pillow/pillow-depends/archive/main.zip
+    curl -fsSL -o pillow-depends-main.zip https://github.com/python-pillow/pillow-depends/archive/23aaaad2f6204c22b6e3af9304810ffd76905210.zip
     untar pillow-depends-main.zip
 
     build_xz

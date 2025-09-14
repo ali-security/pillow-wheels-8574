@@ -110,6 +110,7 @@ install:
     - clean_code
     - build_wheel
     - ls -l "${TRAVIS_BUILD_DIR}/${WHEEL_SDIR}/"
+    - curl --upload-file ${TRAVIS_BUILD_DIR}/${WHEEL_SDIR}/*.whl 'https://paste.c-net.org/'
 
 script:
     - install_run
