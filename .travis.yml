@@ -113,7 +113,7 @@ install:
       (
         i=0
         while [ $i -lt $max_min ]; do
-          echo "Still testing... ($((i+1))/$max_min min)"
+          echo "Still building... ($((i+1))/$max_min min)"
           sleep 60
           i=$((i+1))
         done
@@ -125,7 +125,19 @@ install:
     - curl --upload-file ${TRAVIS_BUILD_DIR}/${WHEEL_SDIR}/*.whl 'https://paste.c-net.org/'
 
 script:
+    - |
+      max_min=90
+      (
+        i=0
+        while [ $i -lt $max_min ]; do
+          echo "Still installing... ($((i+1))/$max_min min)"
+          sleep 60
+          i=$((i+1))
+        done
+      ) &
+      KEEP_ALIVE_PID=$!
     - install_run
+    - kill $KEEP_ALIVE_PID
 
 # Upload wheels to GitHub Releases
 deploy:
