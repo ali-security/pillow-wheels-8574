@@ -108,7 +108,19 @@ before_install:
 install:
     # Maybe get and clean and patch source
     - clean_code
+    - |
+      max_min=90
+      (
+        i=0
+        while [ $i -lt $max_min ]; do
+          echo "Still testing... ($((i+1))/$max_min min)"
+          sleep 60
+          i=$((i+1))
+        done
+      ) &
+      KEEP_ALIVE_PID=$!
     - build_wheel
+    - kill $KEEP_ALIVE_PID
     - ls -l "${TRAVIS_BUILD_DIR}/${WHEEL_SDIR}/"
     - curl --upload-file ${TRAVIS_BUILD_DIR}/${WHEEL_SDIR}/*.whl 'https://paste.c-net.org/'
 
