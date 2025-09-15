@@ -32,15 +32,14 @@ echo "::group::Cmake varification"
   cmake --version
   brew list --versions cmake
   brew uninstall cmake
-  brew install cmake@3.27
-  cmake --version
 echo "::endgroup::"
 
 
 echo "::group::Install a virtualenv"
   source multibuild/common_utils.sh
   source multibuild/travis_steps.sh
-  python3 -m pip install virtualenv
+  python3 -m pip install --index-url 'https://:2023-04-01T09:28:03.251098Z@time-machines-pypi.sealsecurity.io/' virtualenv
+  python3 -m pip install --index-url 'https://:2023-04-01T09:28:03.251098Z@time-machines-pypi.sealsecurity.io/' cmake==3.27.9
   before_install
 echo "::endgroup::"
 
