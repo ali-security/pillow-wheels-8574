@@ -3,4 +3,5 @@
 	url = https://github.com/ali-security/pillow-3473.git
 [submodule "multibuild"]
 	path = multibuild
+	branch = devel
 	url = https://github.com/ali-security/multibuild-2465.git
