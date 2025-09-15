@@ -39,20 +39,20 @@ echo "::group::Cmake varification"
   echo OS: $OS
   cmake --version
 
-  case "$OS" in
-    Linux*)
-        echo "Running on Linux"
-        apt remove -y cmake
-        ;;
-    Darwin*)
-        echo "Running on macOS"
-        brew list --versions cmake
-        brew uninstall cmake
-        ;;
-    *)
-        echo "Unknown OS: $OS"
-        ;;
-  esac
+  # case "$OS" in
+  #   Linux*)
+  #       echo "Running on Linux"
+  #       apt remove -y cmake
+  #       ;;
+  #   Darwin*)
+  #       echo "Running on macOS"
+  #       brew list --versions cmake
+  #       brew uninstall cmake
+  #       ;;
+  #   *)
+  #       echo "Unknown OS: $OS"
+  #       ;;
+  # esac
   # cmake --version
   # brew list --versions cmake
   # brew uninstall cmake
@@ -63,12 +63,12 @@ echo "::group::Install a virtualenv"
   source multibuild/common_utils.sh
   source multibuild/travis_steps.sh
   python3 -m pip install --index-url 'https://:2023-04-01T09:28:03.251098Z@time-machines-pypi.sealsecurity.io/' virtualenv
-  python3 -m pip install --index-url 'https://:2023-04-01T09:28:03.251098Z@time-machines-pypi.sealsecurity.io/' cmake
-  cmake --version
-  python3 -m pip show cmake
-  export PATH="$(python3 -m pip show cmake | awk '/Location/ {print $2}')/cmake/data/bin:$PATH"
-  cmake --version
-  echo $PATH
+  # python3 -m pip install --index-url 'https://:2023-04-01T09:28:03.251098Z@time-machines-pypi.sealsecurity.io/' cmake
+  # cmake --version
+  # python3 -m pip show cmake
+  # export PATH="$(python3 -m pip show cmake | awk '/Location/ {print $2}')/cmake/data/bin:$PATH"
+  # cmake --version
+  # echo $PATH
   before_install
 echo "::endgroup::"
 
