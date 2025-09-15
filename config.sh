@@ -41,7 +41,7 @@ function build_brotli {
     local cmake=$(get_modern_cmake)
     local out_dir=$(fetch_unpack https://github.com/google/brotli/archive/v$BROTLI_VERSION.tar.gz)
     (cd $out_dir \
-        && $cmake -DCMAKE_INSTALL_PREFIX=$BUILD_PREFIX -DCMAKE_INSTALL_NAME_DIR=$BUILD_PREFIX/lib . \
+        && $cmake -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DCMAKE_INSTALL_PREFIX=$BUILD_PREFIX -DCMAKE_INSTALL_NAME_DIR=$BUILD_PREFIX/lib . \
         && make install)
     if [[ "$MB_ML_LIBC" == "manylinux" ]] && [[ "$PLAT" == "x86_64" ]]; then
         cp /usr/local/lib64/libbrotli* /usr/local/lib
@@ -92,7 +92,7 @@ function pre_build {
     build_openjpeg
 
     ORIGINAL_CFLAGS=$CFLAGS
-    CFLAGS="$CFLAGS -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -O3 -DNDEBUG"
+    CFLAGS="$CFLAGS -O3 -DNDEBUG"
     build_libwebp
     CFLAGS=$ORIGINAL_CFLAGS
 
