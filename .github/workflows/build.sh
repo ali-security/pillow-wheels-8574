@@ -5,7 +5,7 @@ if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
   else
     export MACOSX_DEPLOYMENT_TARGET="10.10"
   fi
-  echo "MACOSX_DEPLOYMENT_TARGET: $MACOSX_DEPLOYMENT_TARGET"
+  echo MACOSX_DEPLOYMENT_TARGET: $MACOSX_DEPLOYMENT_TARGET
   # webp, zstd, xz, libtiff, libxcb cause a conflict with building webp, libtiff, libxcb
   # libxdmcp causes an issue on macOS < 11
   # curl from brew requires zstd, use system curl
@@ -35,9 +35,27 @@ fi
 
 
 echo "::group::Cmake varification"
+  OS=$(uname -s)
+  echo OS: $OS
   cmake --version
-  brew list --versions cmake
-  brew uninstall cmake
+
+  case "$OS" in
+    Linux*)
+        echo "Running on Linux"
+        apt remove -y cmake
+        ;;
+    Darwin*)
+        echo "Running on macOS"
+        brew list --versions cmake
+        brew uninstall cmake
+        ;;
+    *)
+        echo "Unknown OS: $OS"
+        ;;
+  esac
+  # cmake --version
+  # brew list --versions cmake
+  # brew uninstall cmake
 echo "::endgroup::"
 
 
