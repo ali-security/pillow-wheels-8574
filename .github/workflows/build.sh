@@ -67,8 +67,13 @@ echo "::group::Install a virtualenv"
   cmake --version
   python3 -m pip show cmake
   export PATH="$(python3 -m pip show cmake | awk '/Location/ {print $2}')/cmake/data/bin:$PATH"
+  cmake --version
   echo $PATH
   before_install
+echo "::endgroup::"
+
+echo "::group::cmake validation"
+  cmake --version
 echo "::endgroup::"
 
 echo "::group::Build wheel"
