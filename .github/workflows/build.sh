@@ -37,22 +37,30 @@ fi
 echo "::group::Cmake varification"
   OS=$(uname -s)
   echo OS: $OS
-  cmake --version
+  echo initial cmake: $(cmake --version)
 
-  # case "$OS" in
-  #   Linux*)
-  #       echo "Running on Linux"
-  #       apt remove -y cmake
-  #       ;;
-  #   Darwin*)
-  #       echo "Running on macOS"
-  #       brew list --versions cmake
-  #       brew uninstall cmake
-  #       ;;
-  #   *)
-  #       echo "Unknown OS: $OS"
-  #       ;;
-  # esac
+  case "$OS" in
+    Linux*)
+        echo "Running on Linux"
+        apt remove -y cmake
+        CMAKE_VERSION=3.5.2
+        curl -LO https://cmake.org/files/v3.5/cmake-${CMAKE_VERSION}.tar.gz
+        tar -xzf cmake-${CMAKE_VERSION}.tar.gz
+        cd cmake-${CMAKE_VERSION}
+        ./bootstrap --prefix=/usr/local
+        make -j$(nproc)
+        make install
+        export PATH=/opt/cmake-${CMAKE_VERSION}/bin:$PATH
+        ;;
+    Darwin*)
+        echo "Running on macOS"
+        brew list --versions cmake
+        brew uninstall cmake
+        ;;
+    *)
+        echo "Unknown OS: $OS"
+        ;;
+  esac
   # cmake --version
   # brew list --versions cmake
   # brew uninstall cmake
