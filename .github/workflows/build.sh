@@ -16,7 +16,6 @@ if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
   else
     export MACOSX_DEPLOYMENT_TARGET="10.10"
   fi
-  echo MACOSX_DEPLOYMENT_TARGET: $MACOSX_DEPLOYMENT_TARGET
 fi
 
 if [[ "$MB_PYTHON_VERSION" == pypy3* ]]; then
@@ -40,6 +39,7 @@ echo "::group::Cmake varification"
   make -j$(nproc)
   make install
   export PATH=/opt/cmake-${CMAKE_VERSION}/bin:$PATH
+  cd ..   # <-- back to repo root, so multibuild/ exists
   cmake --version
 echo "::endgroup::"
 
