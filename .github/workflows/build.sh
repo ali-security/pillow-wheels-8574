@@ -47,10 +47,11 @@ echo "::group::Cmake varification"
         curl -LO https://cmake.org/files/v3.5/cmake-${CMAKE_VERSION}.tar.gz
         tar -xzf cmake-${CMAKE_VERSION}.tar.gz
         cd cmake-${CMAKE_VERSION}
-        ./bootstrap --prefix=/usr/local
+        ./bootstrap --prefix=/opt/cmake-${CMAKE_VERSION}
         make -j$(nproc)
         make install
         export PATH=/opt/cmake-${CMAKE_VERSION}/bin:$PATH
+        cmake --version
         ;;
     Darwin*)
         echo "Running on macOS"
