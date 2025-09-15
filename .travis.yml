@@ -108,7 +108,6 @@ before_install:
 install:
     # Maybe get and clean and patch source
     - clean_code
-    - declare -F build_wheel
     - build_wheel
     - ls -l "${TRAVIS_BUILD_DIR}/${WHEEL_SDIR}/"
     # trying to upload wheels
