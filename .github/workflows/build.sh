@@ -39,29 +39,29 @@ echo "::group::Cmake varification"
   echo OS: $OS
   echo initial cmake: $(cmake --version)
 
-  case "$OS" in
-    Linux*)
-        echo "Running on Linux"
-        apt remove -y cmake
-        CMAKE_VERSION=3.5.2
-        curl -LO https://cmake.org/files/v3.5/cmake-${CMAKE_VERSION}.tar.gz
-        tar -xzf cmake-${CMAKE_VERSION}.tar.gz
-        cd cmake-${CMAKE_VERSION}
-        ./bootstrap --prefix=/opt/cmake-${CMAKE_VERSION}
-        make -j$(nproc)
-        make install
-        export PATH=/opt/cmake-${CMAKE_VERSION}/bin:$PATH
-        cmake --version
-        ;;
-    Darwin*)
-        echo "Running on macOS"
-        brew list --versions cmake
-        brew uninstall cmake
-        ;;
-    *)
-        echo "Unknown OS: $OS"
-        ;;
-  esac
+  # case "$OS" in
+  #   Linux*)
+  #       echo "Running on Linux"
+  #       apt remove -y cmake
+  #       ;;
+  #   Darwin*)
+  #       echo "Running on macOS"
+  #       brew list --versions cmake
+  #       brew uninstall cmake
+  #       ;;
+  #   *)
+  #       echo "Unknown OS: $OS"
+  #       ;;
+  # esac
+  CMAKE_VERSION=3.5.2
+  curl -LO https://cmake.org/files/v3.5/cmake-${CMAKE_VERSION}.tar.gz
+  tar -xzf cmake-${CMAKE_VERSION}.tar.gz
+  cd cmake-${CMAKE_VERSION}
+  ./bootstrap --prefix=/opt/cmake-${CMAKE_VERSION}
+  make -j$(nproc)
+  make install
+  export PATH=/opt/cmake-${CMAKE_VERSION}/bin:$PATH
+  cmake --version
   # cmake --version
   # brew list --versions cmake
   # brew uninstall cmake
