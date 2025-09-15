@@ -5,10 +5,9 @@ if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
   # curl from brew requires zstd, use system curl
   # if php is installed, brew tries to reinstall these after installing openblas
   # remove lcms2 and libpng to fix building openjpeg on arm64
-  # brew remove --ignore-dependencies webp zstd xz libpng libtiff libxcb libxdmcp curl php lcms2 ghostscript
-
-  brew remove --ignore-dependencies webp zstd xz libpng libtiff libxcb libxdmcp curl php lcms2
-  brew remove --ignore-dependencies libdeflate || true
+  brew remove --ignore-dependencies webp zstd xz libpng libtiff libxcb libxdmcp curl php lcms2 ghostscript
+  # brew remove --ignore-dependencies webp zstd xz libpng libtiff libxcb libxdmcp curl php lcms2
+  # brew remove --ignore-dependencies libdeflate || true
 
   brew install pkg-config
 
@@ -28,11 +27,25 @@ elif [[ "$MB_PYTHON_VERSION" == "3.11" ]] && [[ "$PLAT" == "i686" ]]; then
   DOCKER_TEST_IMAGE="radarhere/bionic-$PLAT"
 fi
 
+
+echo "::group::Cmake varification"
+  cmake --version
+  brew list --versions cmake
+  brew uninstall cmake
+  brew install cmake@3.27
+  cmake --version
+echo "::endgroup::"
+
+
 echo "::group::Install a virtualenv"
   source multibuild/common_utils.sh
   source multibuild/travis_steps.sh
   python3 -m pip install virtualenv
   before_install
+echo "::endgroup::"
+
+echo "::group::Cmake validation"
+  cmake --version
 echo "::endgroup::"
 
 echo "::group::Build wheel"
