@@ -53,6 +53,9 @@ echo "::endgroup::"
 
 echo "::group::Build wheel"
   clean_code
+  echo cmake validation
+  which cmake
+  cmake --version
   build_wheel
   ls -l "${GITHUB_WORKSPACE}/${WHEEL_SDIR}/"
 echo "::endgroup::"
