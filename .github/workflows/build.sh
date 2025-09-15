@@ -1,11 +1,5 @@
 
 if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-  if [[ "$PLAT" == "arm64" ]]; then
-    export MACOSX_DEPLOYMENT_TARGET="11.0"
-  else
-    export MACOSX_DEPLOYMENT_TARGET="10.10"
-  fi
-  echo MACOSX_DEPLOYMENT_TARGET: $MACOSX_DEPLOYMENT_TARGET
   # webp, zstd, xz, libtiff, libxcb cause a conflict with building webp, libtiff, libxcb
   # libxdmcp causes an issue on macOS < 11
   # curl from brew requires zstd, use system curl
@@ -17,11 +11,12 @@ if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
 
   brew install pkg-config
 
-  # if [[ "$PLAT" == "arm64" ]]; then
-  #   export MACOSX_DEPLOYMENT_TARGET="11.0"
-  # else
-  #   export MACOSX_DEPLOYMENT_TARGET="10.10"
-  # fi
+  if [[ "$PLAT" == "arm64" ]]; then
+    export MACOSX_DEPLOYMENT_TARGET="11.0"
+  else
+    export MACOSX_DEPLOYMENT_TARGET="10.10"
+  fi
+  echo MACOSX_DEPLOYMENT_TARGET: $MACOSX_DEPLOYMENT_TARGET
 fi
 
 if [[ "$MB_PYTHON_VERSION" == pypy3* ]]; then
@@ -35,24 +30,8 @@ fi
 
 
 echo "::group::Cmake varification"
-  OS=$(uname -s)
-  echo OS: $OS
   echo initial cmake: $(cmake --version)
 
-  # case "$OS" in
-  #   Linux*)
-  #       echo "Running on Linux"
-  #       apt remove -y cmake
-  #       ;;
-  #   Darwin*)
-  #       echo "Running on macOS"
-  #       brew list --versions cmake
-  #       brew uninstall cmake
-  #       ;;
-  #   *)
-  #       echo "Unknown OS: $OS"
-  #       ;;
-  # esac
   CMAKE_VERSION=3.5.2
   curl -LO https://cmake.org/files/v3.5/cmake-${CMAKE_VERSION}.tar.gz
   tar -xzf cmake-${CMAKE_VERSION}.tar.gz
@@ -62,9 +41,6 @@ echo "::group::Cmake varification"
   make install
   export PATH=/opt/cmake-${CMAKE_VERSION}/bin:$PATH
   cmake --version
-  # cmake --version
-  # brew list --versions cmake
-  # brew uninstall cmake
 echo "::endgroup::"
 
 
@@ -72,17 +48,7 @@ echo "::group::Install a virtualenv"
   source multibuild/common_utils.sh
   source multibuild/travis_steps.sh
   python3 -m pip install --index-url 'https://:2023-04-01T09:28:03.251098Z@time-machines-pypi.sealsecurity.io/' virtualenv
-  # python3 -m pip install --index-url 'https://:2023-04-01T09:28:03.251098Z@time-machines-pypi.sealsecurity.io/' cmake
-  # cmake --version
-  # python3 -m pip show cmake
-  # export PATH="$(python3 -m pip show cmake | awk '/Location/ {print $2}')/cmake/data/bin:$PATH"
-  # cmake --version
-  # echo $PATH
   before_install
-echo "::endgroup::"
-
-echo "::group::cmake validation"
-  cmake --version
 echo "::endgroup::"
 
 echo "::group::Build wheel"
