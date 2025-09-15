@@ -1,5 +1,11 @@
 
 if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+  if [[ "$PLAT" == "arm64" ]]; then
+    export MACOSX_DEPLOYMENT_TARGET="11.0"
+  else
+    export MACOSX_DEPLOYMENT_TARGET="10.10"
+  fi
+  echo "MACOSX_DEPLOYMENT_TARGET: $MACOSX_DEPLOYMENT_TARGET"
   # webp, zstd, xz, libtiff, libxcb cause a conflict with building webp, libtiff, libxcb
   # libxdmcp causes an issue on macOS < 11
   # curl from brew requires zstd, use system curl
@@ -11,11 +17,11 @@ if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
 
   brew install pkg-config
 
-  if [[ "$PLAT" == "arm64" ]]; then
-    export MACOSX_DEPLOYMENT_TARGET="11.0"
-  else
-    export MACOSX_DEPLOYMENT_TARGET="10.10"
-  fi
+  # if [[ "$PLAT" == "arm64" ]]; then
+  #   export MACOSX_DEPLOYMENT_TARGET="11.0"
+  # else
+  #   export MACOSX_DEPLOYMENT_TARGET="10.10"
+  # fi
 fi
 
 if [[ "$MB_PYTHON_VERSION" == pypy3* ]]; then
