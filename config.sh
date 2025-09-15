@@ -92,7 +92,7 @@ function pre_build {
     build_openjpeg
 
     ORIGINAL_CFLAGS=$CFLAGS
-    CFLAGS="$CFLAGS -O3 -DNDEBUG"
+    CFLAGS="$CFLAGS -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -O3 -DNDEBUG"
     build_libwebp
     CFLAGS=$ORIGINAL_CFLAGS
 
