@@ -31,8 +31,8 @@ fi
 echo "::group::Cmake varification"
   echo initial cmake: $(cmake --version)
 
-  CMAKE_VERSION=3.5.2
-  curl -LO https://cmake.org/files/v3.5/cmake-${CMAKE_VERSION}.tar.gz
+  CMAKE_VERSION=3.11.4
+  curl -LO https://cmake.org/files/v3.11/cmake-${CMAKE_VERSION}.tar.gz
   tar -xzf cmake-${CMAKE_VERSION}.tar.gz
   cd cmake-${CMAKE_VERSION}
   ./bootstrap --prefix=/opt/cmake-${CMAKE_VERSION}
