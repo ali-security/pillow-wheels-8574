@@ -127,7 +127,6 @@ function pip_wheel_cmd {
     if [ -z "$IS_MACOS" ]; then
         CFLAGS="$CFLAGS --std=c99"  # for Raqm
     fi
-    echo "pip_wheel_cmd - testing tal"
     pip wheel $(pip_opts) \
         --global-option build_ext --global-option --enable-raqm \
         --global-option --vendor-raqm --global-option --vendor-fribidi \
