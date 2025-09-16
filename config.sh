@@ -127,6 +127,7 @@ function pip_wheel_cmd {
     if [ -z "$IS_MACOS" ]; then
         CFLAGS="$CFLAGS --std=c99"  # for Raqm
     fi
+    echo "pip_wheel_cmd - testing tal"
     pip wheel $(pip_opts) \
         --global-option build_ext --global-option --enable-raqm \
         --global-option --vendor-raqm --global-option --vendor-fribidi \
@@ -150,7 +151,7 @@ function run_tests {
         apk add curl fribidi
     else
         apt-get update
-        apt-get install -y curl libfribidi0 libfribidi-dev unzip
+        apt-get install -y curl libfribidi0 unzip
     fi
     if [[ $(uname -m) == "i686" ]]; then
         if [[ "$MB_PYTHON_VERSION" != 3.11 ]]; then
@@ -178,6 +179,21 @@ function run_tests {
         echo "Modules should be: '$EXP_MODULES'; but are '$modules'"
         ret=1
     fi
+    
+    # --- Extra debug: check if fribidi is available on the system ---
+    if command -v pkg-config >/dev/null; then
+        echo "pkg-config fribidi:"
+        pkg-config --modversion fribidi 2>/dev/null || echo "fribidi not found via pkg-config"
+    fi
+
+    if ldconfig -p | grep fribidi >/dev/null 2>&1; then
+        echo "ldconfig reports:"
+        ldconfig -p | grep fribidi
+    else
+        echo "libfribidi not found in ldconfig cache"
+    fi
+    ldd "$(python3 -c 'import PIL._imaging; print(PIL._imaging.__file__)')" | grep fribidi || echo "No fribidi linkage in _imaging"
+
     local features=$(python3 -c 'from PIL.features import *; print(" ".join(sorted(get_supported_features())))')
     if [ "$features" != "$EXP_FEATURES" ]; then
         echo "Features should be: '$EXP_FEATURES'; but are '$features'"
