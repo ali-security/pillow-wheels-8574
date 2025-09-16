@@ -150,7 +150,7 @@ function run_tests {
         apk add curl fribidi
     else
         apt-get update
-        apt-get install -y curl libfribidi0 unzip
+        apt-get install -y curl libfribidi0 libfribidi-dev unzip
     fi
     if [[ $(uname -m) == "i686" ]]; then
         if [[ "$MB_PYTHON_VERSION" != 3.11 ]]; then
