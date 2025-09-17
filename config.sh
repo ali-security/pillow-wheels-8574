@@ -150,7 +150,6 @@ function run_tests {
         apk add curl fribidi
     else
         apt-get update
-        apt-cache policy libfribidi0
         apt-get install -y curl libfribidi0 unzip
     fi
     if [[ $(uname -m) == "i686" ]]; then
