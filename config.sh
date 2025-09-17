@@ -55,6 +55,17 @@ function pre_build {
     curl -fsSL -o pillow-depends-main.zip https://github.com/python-pillow/pillow-depends/archive/23aaaad2f6204c22b6e3af9304810ffd76905210.zip
     untar pillow-depends-main.zip
 
+    # Install fribidi system library for vendor fribidi shim - added tal
+    if [ -n "$IS_MACOS" ]; then
+        brew install fribidi
+    elif [ -n "$IS_ALPINE" ]; then
+        apk add curl fribidi
+    else
+        apt-get update
+        apt-get install -y curl libfribidi0 unzip
+    fi
+    # Install fribidi system library for vendor fribidi shim - added tal
+
     build_xz
     if [ -z "$IS_ALPINE" ] && [ -z "$IS_MACOS" ]; then
         yum remove -y zlib-devel
