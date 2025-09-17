@@ -115,20 +115,6 @@ function pre_build {
         export FREETYPE_CFLAGS=''
     fi
 
-    # Install FriBiDi for RAQM support (needed during build, not just tests)
-    if [ -n "$IS_MACOS" ]; then
-        brew install fribidi
-    elif [ -n "$IS_ALPINE" ]; then
-        apk add fribidi-dev
-    else
-        # For manylinux environments, install FriBiDi development packages
-        if command -v yum >/dev/null 2>&1; then
-            yum install -y fribidi-devel
-        elif command -v apt-get >/dev/null 2>&1; then
-            apt-get update && apt-get install -y libfribidi-dev
-        fi
-    fi
-
     # Append licenses
     for filename in dependency_licenses/*; do
       echo -e "\n\n----\n\n$(basename $filename | cut -f 1 -d '.')\n" | cat >> Pillow/LICENSE
