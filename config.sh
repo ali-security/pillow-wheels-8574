@@ -62,7 +62,7 @@ function pre_build {
         apk add curl fribidi
     else
         yum update
-        yum install -y curl libfribidi0 unzip
+        yum install -y curl fribidi unzip
     fi
     # Install fribidi system library for vendor fribidi shim - added tal
 
