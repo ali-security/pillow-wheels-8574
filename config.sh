@@ -61,8 +61,8 @@ function pre_build {
     elif [ -n "$IS_ALPINE" ]; then
         apk add curl fribidi
     else
-        dnf update
-        dnf install -y curl libfribidi0 unzip
+        yum update
+        yum install -y curl libfribidi0 unzip
     fi
     # Install fribidi system library for vendor fribidi shim - added tal
 
