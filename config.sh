@@ -179,20 +179,6 @@ function run_tests {
         ret=1
     fi
     
-    # --- Extra debug: check if fribidi is available on the system ---
-    if command -v pkg-config >/dev/null; then
-        echo "pkg-config fribidi:"
-        pkg-config --modversion fribidi 2>/dev/null || echo "fribidi not found via pkg-config"
-    fi
-
-    if ldconfig -p | grep fribidi >/dev/null 2>&1; then
-        echo "ldconfig reports:"
-        ldconfig -p | grep fribidi
-    else
-        echo "libfribidi not found in ldconfig cache"
-    fi
-    ldd "$(python3 -c 'import PIL._imaging; print(PIL._imaging.__file__)')" | grep fribidi || echo "No fribidi linkage in _imaging"
-
     local features=$(python3 -c 'from PIL.features import *; print(" ".join(sorted(get_supported_features())))')
     if [ "$features" != "$EXP_FEATURES" ]; then
         echo "Features should be: '$EXP_FEATURES'; but are '$features'"
