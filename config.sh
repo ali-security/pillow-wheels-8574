@@ -115,7 +115,6 @@ function pre_build {
         export FREETYPE_CFLAGS=''
     fi
     echo harfbuzz install done
-    ldconfig -p | grep harfbuzz
     pip --version
 
     # Append licenses
