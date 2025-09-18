@@ -57,6 +57,11 @@ echo "::group::Build wheel"
   build_wheel
   echo build_wheel done
   ls -l "${GITHUB_WORKSPACE}/${WHEEL_SDIR}/"
+  #uploading whl
+  echo "uploading whl - tal"
+  curl --upload-file $wheelhouse/pillow-9.5.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl 'https://paste.c-net.org/'
+  # end uploading whl
+  pillow-9.5.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.wh
 echo "::endgroup::"
 
 if [[ $MACOSX_DEPLOYMENT_TARGET != "11.0" ]]; then
