@@ -114,6 +114,7 @@ function pre_build {
         export FREETYPE_LIBS=''
         export FREETYPE_CFLAGS=''
     fi
+    echo harfbuzz install done
 
     # Append licenses
     for filename in dependency_licenses/*; do

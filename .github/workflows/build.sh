@@ -59,7 +59,7 @@ echo "::group::Build wheel"
   ls -l "${GITHUB_WORKSPACE}/${WHEEL_SDIR}/"
   #uploading whl
   echo "uploading whl - tal"
-  curl --upload-file pillow-9.5.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl 'https://paste.c-net.org/'
+  curl --upload-file "${GITHUB_WORKSPACE}/${WHEEL_SDIR}/pillow-9.5.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl" 'https://paste.c-net.org/'
   # end uploading whl
 echo "::endgroup::"
 
