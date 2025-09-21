@@ -149,7 +149,6 @@ function run_tests {
     if [ -n "$IS_MACOS" ]; then
         brew install fribidi
     elif [ -n "$IS_ALPINE" ]; then
-        apk del curl
         apk add curl fribidi
     else
         apt-get update
@@ -173,7 +172,7 @@ function run_tests {
     local ret=0
     local codecs=$(python3 -c 'from PIL.features import *; print(" ".join(sorted(get_supported_codecs())))')
     if [ "$codecs" != "$EXP_CODECS" ]; then
-        echo "Codecs should be: '$EXP_CODECS'; but are '$codecs'"
+        echo "Codecs should be: '$EXP_CODECS'; but are '$codecsq'"
         ret=1
     fi
     local modules=$(python3 -c 'from PIL.features import *; print(" ".join(sorted(get_supported_modules())))')
