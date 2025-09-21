@@ -149,7 +149,8 @@ function run_tests {
     if [ -n "$IS_MACOS" ]; then
         brew install fribidi
     elif [ -n "$IS_ALPINE" ]; then
-        apk add --no-cache curl fribidi
+        apk del curl
+        apk add curl fribidi
     else
         apt-get update
         apt-get install -y curl libfribidi0 unzip
