@@ -149,9 +149,7 @@ function run_tests {
     if [ -n "$IS_MACOS" ]; then
         brew install fribidi
     elif [ -n "$IS_ALPINE" ]; then
-        apk update
-        apk info
-        apk add --no-cache curl fribidi
+        apk add wget fribidi
     else
         apt-get update
         apt-get install -y curl libfribidi0 unzip
@@ -163,8 +161,12 @@ function run_tests {
     elif [ -z "$IS_ALPINE" ]; then
         python3 -m pip install numpy
     fi
-
-    curl -fsSL -o pillow-test-images.zip https://github.com/python-pillow/test-images/archive/main.zip
+    if [ -n "$IS_ALPINE" ]; then
+        wget -O pillow-test-images.zip https://github.com/python-pillow/test-images/archive/main.zip
+    else
+        curl -fsSL -o pillow-test-images.zip https://github.com/python-pillow/test-images/archive/main.zip
+    fi
+    # curl -fsSL -o pillow-test-images.zip https://github.com/python-pillow/test-images/archive/main.zip
     untar pillow-test-images.zip
     mv test-images-main/* ../Pillow/Tests/images
 
