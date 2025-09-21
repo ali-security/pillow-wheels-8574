@@ -54,7 +54,7 @@ jobs:
             mb-ml-libc: "musllinux"
             mb-ml-ver: "_1_1"
     env:
-      GH_NAME: ${{ matrix.python }}-${{ matrix.mb-ml-libc }}${{ matrix.mb-ml-ver }}
+      GH_NAME: ${{ matrix.python }}-${{ matrix.mb-ml-libc }}${{ matrix.mb-ml-ver }}-${{ matrix.platform }}
       BUILD_COMMIT: ${{ inputs.build-commit }}
       PLAT: ${{ matrix.platform }}
       MB_PYTHON_VERSION: ${{ matrix.python }}
